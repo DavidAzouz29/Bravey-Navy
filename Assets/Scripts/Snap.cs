@@ -12,8 +12,8 @@ using System.Collections;
 public class Snap : MonoBehaviour
 {
     [Header("Snaps ships to grid.")]
-    public float fScaleFactor = 10.0f;
-    public float fHalfWay = 0.5f;
+    public Vector2 v2ScaleFactor;
+    //public float fHalfWay = 0.5f;
 
     [SerializeField]
     private Vector3 v3currentPos;
@@ -31,8 +31,8 @@ public class Snap : MonoBehaviour
         if (transform.tag == "Ship")
         {
             v3currentPos = transform.position;
-            posX = Mathf.Round(v3currentPos.x / fScaleFactor) * fScaleFactor;
-            posZ = Mathf.Round(v3currentPos.z / fScaleFactor) * fScaleFactor;
+            posX = Mathf.Round(v3currentPos.x / v2ScaleFactor.x) * v2ScaleFactor.x;
+            posZ = Mathf.Round(v3currentPos.z / v2ScaleFactor.y) * v2ScaleFactor.y;
             transform.position = new Vector3(posX, v3currentPos.y, posZ);
 
             //TODO: delete - used to display correct number on same frame
