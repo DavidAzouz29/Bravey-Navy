@@ -10,7 +10,6 @@ using System.Collections;
 
 public class GridPlacement : MonoBehaviour
 {
-
     public enum E_GRID_STATE
     {
         E_GRID_STATE_EMPTY,
@@ -31,6 +30,7 @@ public class GridPlacement : MonoBehaviour
         E_SHIP_STATE_DEAD,
     }
     private E_SHIP_STATE eCurrentShipState;
+    private Shader cubeState;
 
     // Use this for initialization
     void Start ()
@@ -41,7 +41,7 @@ public class GridPlacement : MonoBehaviour
             grid = E_GRID_STATE.E_GRID_STATE_EMPTY;
         }*/
         eCurrentShipState = E_SHIP_STATE.E_SHIP_STATE_NOT_PLACED;
-
+        cubeState = GetComponentInChildren<Shader>();
     }
 	
 	// Update is called once per frame
@@ -51,4 +51,32 @@ public class GridPlacement : MonoBehaviour
         //TODO: if placed and *clicked*, drag along
 
 	}
+
+    public void CheckSquare()
+    {
+        switch(eCurrentGridState)
+        {
+            case E_GRID_STATE.E_GRID_STATE_EMPTY:
+            case E_GRID_STATE.E_GRID_STATE_MISS:
+                {
+                    cubeState = Grid.Instance.gridEmpty.shader;
+                    break;
+                }
+            case E_GRID_STATE.E_GRID_STATE_PLACED:
+            case E_GRID_STATE.E_GRID_STATE_SHIPDEAD:
+                {
+                    cubeState = Grid.Instance.gridPlaced.shader;
+                    break;
+                }
+            case E_GRID_STATE.E_GRID_STATE_HIT:
+                {
+                    cubeState = Grid.Instance.gridHit.shader;
+                    break;
+                }
+            default:
+                {
+                    break;
+                }
+        }
+    }
 }
