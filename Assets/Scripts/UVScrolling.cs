@@ -4,6 +4,7 @@ using System.Collections;
 public class UVScrolling : MonoBehaviour {
     public MeshRenderer r_MeshSlime;
     public float uiTilingX = 25.0f; 
+    public float uiPingPongLength = 0.3f; 
 
     // Use this for initialization
     void Start () {
@@ -16,7 +17,7 @@ public class UVScrolling : MonoBehaviour {
         Time.timeScale = 0.03f;
         uiTilingX += Time.deltaTime * Time.timeScale;
         //Debug.Log(uiTilingX);
-        r_MeshSlime.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(uiTilingX, 25));
+        r_MeshSlime.sharedMaterial.SetTextureOffset("_MainTex", new Vector2(uiTilingX, Mathf.PingPong(uiTilingX, uiPingPongLength)));
         if (uiTilingX >= 100)
         {
             uiTilingX = 0;
